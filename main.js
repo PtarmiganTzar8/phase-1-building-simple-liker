@@ -2,9 +2,34 @@
 const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
-// Your JavaScript code goes here!
 
+const useHidden = document.getElementById('modal')
+useHidden.className = "hidden"
 
+const heartAnimate = document.querySelectorAll('.like-glyph')
+function likerApp(e){
+  const action = e.target
+  mimicServerCall()
+  .then(function switchHearts(){
+    if (action.innerText === EMPTY_HEART) {
+      action.innerText = FULL_HEART;
+
+    }
+    else {
+      action.innerText = EMPTY_HEART;
+    }
+  })
+  .catch(function quickError(error) {
+    useHidden.className = " "
+    setTimeout(function errorGone(){
+      useHidden.className = "hidden"
+    }, 3000)
+  })
+}
+
+for (const glyph of heartAnimate) {
+  glyph.addEventListener("click", likerApp)
+}
 
 
 //------------------------------------------------------------------------------
